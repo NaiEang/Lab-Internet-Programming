@@ -15,6 +15,7 @@ const plumImage = new URL('@/assets/plum.png', import.meta.url).href
 const onionImage = new URL('@/assets/onion.jpg', import.meta.url).href
 const veganImage = new URL('@/assets/vegan.jpg', import.meta.url).href
 const yogurtImage = new URL('@/assets/strawberryyogurt.png', import.meta.url).href
+const arrowImage = new URL('@/assets/arrow.jpg', import.meta.url).href
 
 export default {
   name: 'App',
@@ -37,6 +38,7 @@ export default {
       onionImage,
       veganImage,
       yogurtImage,
+      arrowImage,
     }
   },
 }
@@ -57,9 +59,35 @@ export default {
       <CategoryComponent title="Orange" :item-count="63" :image="orangeImage" bg="#FFF3FF" />
     </div>
     <div class="promotion-wrapper">
-      <PromotionComponent title="Fresh Vegetables" :img="onionImage" bg="#F2FCE4" />
-      <PromotionComponent title="Vegan Food" :img="veganImage" bg="#ECFFEC" />
-      <PromotionComponent title="Strawberry Yogurt" :img="yogurtImage" bg="#FFF3EB" />
+      <!-- Card 1 -->
+      <div class="promo-text">
+        <PromotionComponent
+          title="Everyday Fresh & Clean with Our Products"
+          :img="onionImage"
+          bg="#F2FCE4"
+          buttonText="Show Now"
+          buttonColor="#3BB77E"
+          :arrow="arrowImage"
+        />
+
+        <PromotionComponent
+          title="Vegan Food"
+          :img="veganImage"
+          bg="#ECFFEC"
+          buttonText="Shop Now"
+          buttonColor="#3BB77E"
+          :arrow="arrowImage"
+        />
+
+        <PromotionComponent
+          title="Strawberry Yogurt"
+          :img="yogurtImage"
+          bg="#FFF3EB"
+          buttonText="Shop Now"
+          buttonColor="#FDC040"
+          :arrow="arrowImage"
+        />
+      </div>
     </div>
   </div>
 </template>
