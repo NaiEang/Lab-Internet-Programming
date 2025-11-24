@@ -39,6 +39,7 @@ export default {
   align-items: center;
   padding: 10px;
   background-color: bg;
+  font: Quicksand;
 }
 
 .count {

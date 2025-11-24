@@ -61,6 +61,7 @@ export default {
   position: absolute;
   bottom: 0;
   right: 0;
+  
   width: 140 px;
   height: 140px;
   object-fit: contain;

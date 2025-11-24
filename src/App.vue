@@ -1,6 +1,7 @@
 <script>
 import CategoryComponent from './components/CategoryComponent.vue'
 import PromotionComponent from './components/PromotionComponent.vue'
+import MainContainer from './components/MainContainer.vue'
 
 const snackImage = new URL('@/assets/snack.png', import.meta.url).href
 const peachImage = new URL('@/assets/peach.png', import.meta.url).href
@@ -22,6 +23,7 @@ export default {
   components: {
     CategoryComponent,
     PromotionComponent,
+    MainContainer,
   },
   data() {
     return {
@@ -46,7 +48,9 @@ export default {
 
 <template>
   <div class="big-wrap">
+    <MainContainer />
     <div class="category-wrapper">
+      <h1></h1>
       <CategoryComponent title="Cake&Milk" :item-count="14" :image="burgerImage" bg="#81B13D" />
       <CategoryComponent title="Peach" :item-count="17" :image="peachImage" bg="#FFFCEB" />
       <CategoryComponent title="Oganic Kiwi" :item-count="21" :image="kiwiImage" bg="#ECFFEC" />
@@ -69,7 +73,7 @@ export default {
       />
 
       <PromotionComponent
-        title="Make your breakfast healthy and easy"
+        title="Make your Breakfast healthy and easy"
         :img="veganImage"
         bg="#E7EAF3"
         buttonText="Shop Now"
@@ -78,7 +82,7 @@ export default {
       />
 
       <PromotionComponent
-        title="The best Organi Products Online"
+        title="The best Organic Products Online"
         :img="yogurtImage"
         bg="#F3E8E8"
         buttonText="Shop Now"
