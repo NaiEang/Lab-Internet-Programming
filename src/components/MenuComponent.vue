@@ -3,7 +3,6 @@
     <div class="header">
       <h3>{{ title }}</h3>
       <div class="links">
-        <!-- Example static links for the header -->
         <a href="#">All</a>
         <a href="#">Milks & Dairies</a>
         <a href="#">Coffees & Teas</a>
@@ -30,13 +29,12 @@ export default {
 
 <style scoped>
 .menu-section {
-  margin-bottom: 40px;
+  margin-bottom: 10 px;
 }
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
 }
 .header h3 {
   font-size: 24px;

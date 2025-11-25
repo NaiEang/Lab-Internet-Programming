@@ -1,7 +1,7 @@
 <script>
 import { useProductStore } from './stores/product'
 import MenuComponent from './components/MenuComponent.vue'
-// import ProductComponent from './components/ProductComponent.vue'
+import ProductComponent from './components/ProductComponent.vue'
 import PromotionComponent from './components/PromotionComponent.vue'
 import CategoryComponent from './components/CategoryComponent.vue'
 
@@ -10,7 +10,7 @@ export default {
   components: {
     MenuComponent,
     CategoryComponent,
-    // ProductComponent,
+    ProductComponent,
     PromotionComponent,
   },
   setup() {
@@ -28,7 +28,7 @@ export default {
 
 <template>
   <div class="big-wrap">
-    <MenuComponent title="Featured Categories" />
+    <MenuComponent />
 
     <div class="category-wrapper">
       <CategoryComponent
@@ -51,12 +51,10 @@ export default {
         :buttonColor="promo.buttonColor || '#3BB77E'"
       />
     </div>
-
-    <!--
-      Task 2: Product Component
-      New section for Popular Products
-    -->
-    <!-- <ProductComponent title="Popular Products" :products="popularProducts" /> -->
+    <MenuComponent title="Popular Products" />
+    <div>
+      <ProductComponent :products="productStore.products" />
+    </div>
   </div>
 </template>
 

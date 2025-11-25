@@ -2,7 +2,7 @@
   <div class="promotion-container" :style="{ backgroundColor: bg }">
     <h2 class="promotion-title">{{ title }}</h2>
 
-    <ShopButton v-if="buttonText && buttonColor && arrow" :color="buttonColor" :arrow="arrow">
+    <ShopButton v-if="buttonText && buttonColor" :color="buttonColor">
       {{ buttonText }}
     </ShopButton>
 
@@ -30,7 +30,6 @@ export default {
     },
     buttonText: String,
     buttonColor: String,
-    arrow: String,
   },
 }
 </script>
@@ -55,13 +54,15 @@ export default {
   line-height: 1.3;
   max-width: 60%;
   margin: 0;
+  color: #253d4e;
+  z-index: 2;
 }
 
 .promotion-image {
   position: absolute;
   bottom: 0;
   right: 0;
-  
+
   width: 140 px;
   height: 140px;
   object-fit: contain;

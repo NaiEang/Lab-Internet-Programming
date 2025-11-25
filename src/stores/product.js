@@ -7,6 +7,7 @@ export const useProductStore = defineStore('product', {
     promotions: [],
     categories: [],
     products: [],
+    menu: [],
   }),
   getters: {
     // Get specific category list by group name
