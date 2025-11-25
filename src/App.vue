@@ -1,95 +1,62 @@
 <script>
-import CategoryComponent from './components/CategoryComponent.vue'
+import { useProductStore } from './stores/product'
+import MenuComponent from './components/MenuComponent.vue'
+// import ProductComponent from './components/ProductComponent.vue'
 import PromotionComponent from './components/PromotionComponent.vue'
-import MainContainer from './components/MainContainer.vue'
-
-const snackImage = new URL('@/assets/snack.png', import.meta.url).href
-const peachImage = new URL('@/assets/peach.png', import.meta.url).href
-const kiwiImage = new URL('@/assets/kiwi.png', import.meta.url).href
-const appleImage = new URL('@/assets/apple.png', import.meta.url).href
-const vegetableImage = new URL('@/assets/vegetables.png', import.meta.url).href
-const burgerImage = new URL('@/assets/burger.png', import.meta.url).href
-const cakeImage = new URL('@/assets/cake.png', import.meta.url).href
-const orangeImage = new URL('@/assets/orange.png', import.meta.url).href
-const headphoneImage = new URL('@/assets/headphone.png', import.meta.url).href
-const plumImage = new URL('@/assets/plum.png', import.meta.url).href
-const onionImage = new URL('@/assets/onion.jpg', import.meta.url).href
-const veganImage = new URL('@/assets/chili.jpg', import.meta.url).href
-const yogurtImage = new URL('@/assets/strawberryyogurt.png', import.meta.url).href
-const arrowImage = new URL('@/assets/arrow.jpg', import.meta.url).href
+import CategoryComponent from './components/CategoryComponent.vue'
 
 export default {
   name: 'App',
   components: {
+    MenuComponent,
     CategoryComponent,
+    // ProductComponent,
     PromotionComponent,
-    MainContainer,
   },
-  data() {
+  setup() {
+    const productStore = useProductStore()
+
     return {
-      snackImage,
-      peachImage,
-      kiwiImage,
-      appleImage,
-      vegetableImage,
-      burgerImage,
-      cakeImage,
-      orangeImage,
-      headphoneImage,
-      plumImage,
-      onionImage,
-      veganImage,
-      yogurtImage,
-      arrowImage,
+      productStore,
     }
+  },
+  async mounted() {
+    await this.productStore.fetchAllData()
   },
 }
 </script>
 
 <template>
   <div class="big-wrap">
-    <MainContainer />
+    <MenuComponent title="Featured Categories" />
+
     <div class="category-wrapper">
-      <h1></h1>
-      <CategoryComponent title="Cake&Milk" :item-count="14" :image="burgerImage" bg="#81B13D" />
-      <CategoryComponent title="Peach" :item-count="17" :image="peachImage" bg="#FFFCEB" />
-      <CategoryComponent title="Oganic Kiwi" :item-count="21" :image="kiwiImage" bg="#ECFFEC" />
-      <CategoryComponent title="Red Apple" :item-count="68" :image="appleImage" bg="#FEEFEA" />
-      <CategoryComponent title="Snack" :item-count="34" :image="snackImage" bg="#FFF3EB" />
-      <CategoryComponent title="Black plum" :item-count="25" :image="plumImage" bg="#FFF3FF" />
-      <CategoryComponent title="Vegetables" :item-count="65" :image="vegetableImage" bg="#F2FCE4" />
-      <CategoryComponent title="Headphone" :item-count="33" :image="headphoneImage" bg="#FFFCEB" />
-      <CategoryComponent title="Cake & Milk" :item-count="54" :image="cakeImage" bg="#F2FCE4" />
-      <CategoryComponent title="Orange" :item-count="63" :image="orangeImage" bg="#FFF3FF" />
+      <CategoryComponent
+        v-for="category in productStore.categories"
+        :key="category.id"
+        :title="category.name"
+        :itemCount="category.productCount"
+        :image="'http://localhost:3000/' + category.image"
+        :bg="category.color"
+      />
     </div>
     <div class="promotion-wrapper">
       <PromotionComponent
-        title="Everyday Fresh & Clean with Our Products"
-        :img="onionImage"
-        bg="#F0E8D5"
+        v-for="promo in productStore.promotions"
+        :key="promo.id"
+        :title="promo.title"
+        :img="'http://localhost:3000/' + promo.image"
+        :bg="promo.color"
         buttonText="Shop Now"
-        buttonColor="#3BB77E"
-        :arrow="arrowImage"
-      />
-
-      <PromotionComponent
-        title="Make your Breakfast healthy and easy"
-        :img="veganImage"
-        bg="#E7EAF3"
-        buttonText="Shop Now"
-        buttonColor="#3BB77E"
-        :arrow="arrowImage"
-      />
-
-      <PromotionComponent
-        title="The best Organic Products Online"
-        :img="yogurtImage"
-        bg="#F3E8E8"
-        buttonText="Shop Now"
-        buttonColor="#FDC040"
-        :arrow="arrowImage"
+        :buttonColor="promo.buttonColor || '#3BB77E'"
       />
     </div>
+
+    <!--
+      Task 2: Product Component
+      New section for Popular Products
+    -->
+    <!-- <ProductComponent title="Popular Products" :products="popularProducts" /> -->
   </div>
 </template>
 
@@ -104,11 +71,15 @@ export default {
   display: flex;
   flex-direction: row;
   gap: 18px;
+  flex-wrap: wrap;
 }
 
 .big-wrap {
   display: flex;
   flex-direction: column;
   gap: 32px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
 }
 </style>
