@@ -11,11 +11,7 @@
         </div>
 
         <div class="img-wrapper">
-          <img
-            :src="'http://localhost:3000/uploads/' + product.image"
-            :alt="product.name"
-            loading="lazy"
-          />
+          <img :src="fixImageUrl(product.image)" alt="product.name" loading="lazy" />
         </div>
 
         <div class="content">
@@ -63,6 +59,37 @@ export default {
     },
     addToCart(product) {
       this.$emit('add-to-cart', { ...product })
+    },
+    fixImageUrl(image) {
+      if (!image) return '/placeholder.jpg'
+
+      let path = image
+      if (Array.isArray(image)) {
+        path = image[0]
+      }
+
+      if (typeof path === 'string' && path.startsWith('[')) {
+        try {
+          const parsed = JSON.parse(path)
+          path = Array.isArray(parsed) ? parsed[0] : parsed
+        } catch (e) {
+          // ignore
+        }
+      }
+      path = path.toString().replace(/^\/+/, '').replace(/\\/g, '/').replace(/\/\//g, '/')
+
+      return `http://localhost:3000/${path}`
+    },
+  },
+  computed: {
+    // This function fixes array + adds full URL
+    safeImageUrl() {
+      return (image) => {
+        if (!image) return '/placeholder.jpg'
+        const path = Array.isArray(image) ? image[0] : image
+        const cleanPath = path.replace(/^\/+/, '').replace(/\\/g, '/')
+        return `http://localhost:3000/${cleanPath}`
+      }
     },
   },
 }
