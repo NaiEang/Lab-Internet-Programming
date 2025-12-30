@@ -3,6 +3,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { OrdersController } from './orders.controller';
 import { OrdersService } from './orders.service';
 import { NotificationsModule } from 'src/notifications/notifications.module';
+import { forwardRef } from '@nestjs/common';
 
 @Module({
   imports: [
@@ -18,8 +19,10 @@ import { NotificationsModule } from 'src/notifications/notifications.module';
       },
     ]),
     NotificationsModule,
+    forwardRef(() => NotificationsModule),
   ],
   controllers: [OrdersController],
   providers: [OrdersService],
+  exports: [OrdersService],
 })
 export class OrdersModule {}

@@ -1,9 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { OrdersService } from 'src/orders/orders.service';
+import { forwardRef } from '@nestjs/common';
 
 @Injectable()
 export class NotificationsService {
-  constructor(private readonly ordersService: OrdersService) {}
+  constructor(
+    @Inject(forwardRef(() => OrdersService))
+    private readonly ordersService: OrdersService,
+  ) {}
 
   notify(event: string, payload: any) {
     // For lab: just log
