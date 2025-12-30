@@ -5,6 +5,7 @@ import { ReceiptsController } from './receipts/receipts.controller';
 import { ReceiptsService } from './receipts/receipts.service';
 import { Receipt } from './database/entities/receipts.entity';
 import { NotificationsModule } from './notifications/notifications.module';
+import { CoreModule } from './core/core.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { NotificationsModule } from './notifications/notifications.module';
     TypeOrmModule.forFeature([Receipt]),
     OrdersModule,
     NotificationsModule,
+    CoreModule,
   ],
   controllers: [ReceiptsController], // 3. Add the Controller here!
   providers: [ReceiptsService], // 4. Add the Service here!
