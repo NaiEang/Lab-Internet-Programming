@@ -4,6 +4,7 @@ import { OrdersModule } from './orders/orders.module';
 import { ReceiptsController } from './receipts/receipts.controller';
 import { ReceiptsService } from './receipts/receipts.service';
 import { Receipt } from './database/entities/receipts.entity';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { Receipt } from './database/entities/receipts.entity';
     // 2. Register the Receipt Entity for the Repository
     TypeOrmModule.forFeature([Receipt]),
     OrdersModule,
+    NotificationsModule,
   ],
   controllers: [ReceiptsController], // 3. Add the Controller here!
   providers: [ReceiptsService], // 4. Add the Service here!
