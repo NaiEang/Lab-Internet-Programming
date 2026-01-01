@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { Receipt } from 'src/database/entities/receipts.entity';
 import { CreateReceiptDto } from './dto/create-receipt.dto';
 import { UpdateReceiptDto } from './dto/update-receipt.dto';
-import { NotificationsService } from 'src/notifications/notifications.service';
+import { NotificationsService } from 'src/notifications/notification.service';
 
 @Injectable()
 export class ReceiptsService {
@@ -33,7 +33,7 @@ export class ReceiptsService {
 
     const saved = await this.receiptRepo.save(receipt);
 
-    this.notificationsService.notify('receipt_created', {
+    this.notificationsService.notify('receipts', 'receipt_created', {
       receipt: saved,
       price: saved.price,
     });

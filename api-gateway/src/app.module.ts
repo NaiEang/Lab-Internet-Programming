@@ -4,7 +4,7 @@ import { OrdersModule } from './orders/orders.module';
 import { ReceiptsController } from './receipts/receipts.controller';
 import { ReceiptsService } from './receipts/receipts.service';
 import { Receipt } from './database/entities/receipts.entity';
-import { NotificationsModule } from './notifications/notifications.module';
+import { NotificationModule } from './notifications/notification.module';
 import { CoreModule } from './core/core.module';
 
 @Module({
@@ -23,7 +23,11 @@ import { CoreModule } from './core/core.module';
     // 2. Register the Receipt Entity for the Repository
     TypeOrmModule.forFeature([Receipt]),
     OrdersModule,
-    NotificationsModule,
+    NotificationModule.forRoot({
+      appName: 'API_Gateway',
+      defaultChannel: 'log',
+      enable: true,
+    }),
     CoreModule,
   ],
   controllers: [ReceiptsController], // 3. Add the Controller here!

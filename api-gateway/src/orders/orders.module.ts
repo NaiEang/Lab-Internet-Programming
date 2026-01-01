@@ -2,7 +2,8 @@ import { Module } from '@nestjs/common';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { OrdersController } from './orders.controller';
 import { OrdersService } from './orders.service';
-import { NotificationsModule } from 'src/notifications/notifications.module';
+// ✅ Use a relative path to avoid 'src/' errors
+import { NotificationModule } from '../notifications/notification.module';
 
 @Module({
   imports: [
@@ -11,13 +12,18 @@ import { NotificationsModule } from 'src/notifications/notifications.module';
         name: 'ORDERS_SERVICE',
         transport: Transport.RMQ,
         options: {
-          urls: [process.env.RABBITMQ_URL || 'amqp://rabbitmq:5672'],
+          urls: [process.env.RABBITMQ_URL || 'amqp://localhost:5672'], // Change rabbitmq to localhost if running locally
           queue: 'orders_queue',
           queueOptions: { durable: false },
         },
       },
     ]),
-    NotificationsModule,
+    // ✅ FIX: Call .forFeature() to register Orders-specific settings
+    NotificationModule.forFeature({
+      featureName: 'orders',
+      prefix: '[ORDERS]',
+      channels: ['log', 'telegram'], // This feature gets an extra channel
+    }),
   ],
   controllers: [OrdersController],
   providers: [OrdersService],
