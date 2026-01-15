@@ -11,17 +11,17 @@ import { ProductModule } from './modules/product/product.module';
 import { ConfigModule } from '@nestjs/config';
 import { Product } from './modules/product/entities/product.entity';
 import { Category } from './modules/category/entities/category.entity';
+import { CustomersModule } from './modules/customers/customers.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    // 1. Database Connection (Required for Task 4)
     DatabaseModule.forRoot({
-      host: process.env.DB_HOST || 'localhost',
+      host: process.env.DB_HOST || 'postgres',
       port: 5432,
       username: 'postgres',
-      password: '2233', // check your local db password
-      database: 'nest_db', // check your local db name
+      password: '2233',
+      database: 'nest_db',
       entities: [Receipt, Category, Product],
     }),
     DatabaseModule.forFeature([Receipt]),
@@ -34,8 +34,9 @@ import { Category } from './modules/category/entities/category.entity';
       enable: true,
     }),
     CoreModule,
+    CustomersModule,
   ],
-  controllers: [ReceiptsController], // 3. Add the Controller here!
-  providers: [ReceiptsService], // 4. Add the Service here!
+  controllers: [ReceiptsController],
+  providers: [ReceiptsService],
 })
 export class AppModule {}

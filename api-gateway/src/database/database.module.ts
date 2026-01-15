@@ -11,7 +11,7 @@ type DbOptions = {
   entities: any[];
 };
 
-@Global() // so you don't need to import it everywhere (research why)
+@Global()
 @Module({})
 export class DatabaseModule {
   static forRoot(options: DbOptions): DynamicModule {
@@ -42,7 +42,6 @@ export class DatabaseModule {
 
   static forFeature(entities: Type<any>[]): DynamicModule {
     const repoProviders = entities.map((entity) => ({
-      // We use (entity as any) to allow access to the .name property
       provide: `${entity.name.toUpperCase()}_REPO`,
       useFactory: (dataSource: DataSource) => dataSource.getRepository(entity),
       inject: [DATA_SOURCE],
