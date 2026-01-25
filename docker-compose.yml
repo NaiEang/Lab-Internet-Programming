@@ -24,7 +24,7 @@ services:
       POSTGRES_PASSWORD: 2233
       POSTGRES_DB: nest_db
     ports:
-      - "5432:5432"
+      - "5435:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
